@@ -2,9 +2,11 @@ require('dotenv').config();
 
 const { describe, Try } = require('riteway');
 const request = require('supertest');
-// const app = require('../app');
-// const app = 'http://localhost:3000';
-const app = 'https://c4f09fbe.ngrok.io';
+let app = require('../app');
+
+if (process.env.REMOTE_URL) {
+    app = process.env.REMOTE_URL;
+}
 
 // describe('trivial', async assert => {
 //     assert({
