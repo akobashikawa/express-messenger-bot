@@ -12,6 +12,9 @@ router.get('/hello', function (req, res, next) {
   res.send('hello');
 });
 
+/**
+ * Valida en token para devolver el challenge
+ */
 router.get('/webhook', function (req, res, next) {
   const mode = req.query['hub.mode'];
   const token = req.query['hub.verify_token'];
