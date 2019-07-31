@@ -10,4 +10,8 @@ router.get('/hello', function (req, res, next) {
   res.send('hello');
 });
 
+router.get('/webhook', function (req, res, next) {
+  res.send('CHALLENGE_ACCEPTED');
+});
+
 module.exports = router;
