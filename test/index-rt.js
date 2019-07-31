@@ -13,7 +13,7 @@ const app = require('../app');
 //     });
 // });
 
-describe('/hello', async assert => {
+describe('GET /hello', async assert => {
     const url = '/hello';
     request(app)
         .get(url)
@@ -30,7 +30,7 @@ describe('/hello', async assert => {
         });
 });
 
-describe('/webhook', async assert => {
+describe('GET /webhook', async assert => {
     let url;
     url = `/webhook`;
     request(app)
@@ -77,4 +77,24 @@ describe('/webhook', async assert => {
                 expected: 'CHALLENGE_ACCEPTED'
             });
         });
+});
+
+describe('POST /webhook', async assert => {
+    let url;
+    url = `/webhook`;
+    request(app)
+        .post(url)
+        .set('Content-Type', 'application/json')
+        .expect(400)
+        .end((err, res) => {
+            if (err) throw err;
+
+            return assert({
+                given: 'no params',
+                should: 'return status 400',
+                actual: res.status,
+                expected: 400
+            });
+        });
+
 });
