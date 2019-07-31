@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const { describe, Try } = require('riteway');
 const request = require('supertest');
-const app = require('../app');
+// const app = require('../app');
+const app = 'http://localhost:3000';
 
 // describe('trivial', async assert => {
 //     assert({
@@ -13,11 +14,8 @@ const app = require('../app');
 //     });
 // });
 
-const baseUrl = '';
-// const baseUrl = 'http://localhost:3000';
-
 describe('GET /hello', async assert => {
-    const url = `${baseUrl}/hello`;
+    const url = `/hello`;
     request(app)
         .get(url)
         .expect(200)
@@ -34,7 +32,7 @@ describe('GET /hello', async assert => {
 
 describe('GET /webhook', async assert => {
     let url;
-    url = `${baseUrl}/webhook`;
+    url = `/webhook`;
     request(app)
         .get(url)
         .expect(400)
@@ -48,7 +46,7 @@ describe('GET /webhook', async assert => {
             throw err;
         });
 
-    url = `${baseUrl}/webhook?hub.verify_token=INVALID&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`;
+    url = `/webhook?hub.verify_token=INVALID&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`;
     request(app)
         .get(url)
         .expect(403)
@@ -63,7 +61,7 @@ describe('GET /webhook', async assert => {
         });
 
     const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-    url = `${baseUrl}/webhook?hub.verify_token=${VERIFY_TOKEN}&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`;
+    url = `/webhook?hub.verify_token=${VERIFY_TOKEN}&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`;
     request(app)
         .get(url)
         .expect(200)
@@ -80,7 +78,7 @@ describe('GET /webhook', async assert => {
 
 describe('POST /webhook', async assert => {
     let url;
-    url = `${baseUrl}/webhook`;
+    url = `/webhook`;
     request(app)
         .post(url)
         .set('Content-Type', 'application/json')

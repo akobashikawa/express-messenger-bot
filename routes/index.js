@@ -43,10 +43,13 @@ router.post('/webhook', function (req, res, next) {
   }
 
   if (body.object === 'page') {
-    body.entry.forEach(entry => {
-      const webhookEvent = entry.messaging[0];
-      console.log({ webhookEvent });
-    });
+
+    if (body.entry) {
+      for (let entry of body.entry) {
+        const webhookEvent = entry.messaging[0];
+        console.log({ webhookEvent });
+      }
+    }
 
     return res.status(200).send('EVENT_RECEIVED');
   }
