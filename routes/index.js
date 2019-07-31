@@ -20,7 +20,7 @@ router.get('/webhook', function (req, res, next) {
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
 
-  console.log({ mode, token, challenge });
+  // console.log({ mode, token, challenge });
 
   if (!mode || !token || !challenge) {
     return res.sendStatus(400);
@@ -33,6 +33,25 @@ router.get('/webhook', function (req, res, next) {
   }
 
   res.sendStatus(403);
+});
+
+router.post('/webhook', function (req, res, next) {
+  const body = req.body;
+
+  if (!body.object) {
+    return res.sendStatus(400);
+  }
+
+  if (body.object === 'page') {
+    body.entry.forEach(entry => {
+      const webhookEvent = entry.messaging[0];
+      console.log({ webhookEvent });
+    });
+
+    return res.status(200).send('EVENT_RECEIVED');
+  }
+
+  res.sendStatus(404);
 });
 
 module.exports = router;
