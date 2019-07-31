@@ -16,6 +16,7 @@
   "devDependencies": {
     "nodemon": "^1.19.1",
     "riteway": "^6.1.0",
+    "supertest": "^4.0.2",
     "tap-nirvana": "^1.1.0"
   }
 }
