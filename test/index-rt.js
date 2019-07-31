@@ -27,3 +27,21 @@ describe('/hello', async assert => {
             });
         });
 });
+
+describe('/webhook', async assert => {
+    const VERIFY_TOKEN = '';
+    const url = `/webhook?hub.verify_token=${VERIFY_TOKEN}&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe`;
+    request(app)
+        .get(url)
+        .expect(200)
+        .end((err, res) => {
+            if (err) throw err;
+
+            return assert({
+                given: 'VERIFY_TOKEN',
+                should: 'return text CHALLENGE_ACCEPTED',
+                actual: res.text,
+                expected: 'CHALLENGE_ACCEPTED'
+            });
+        });
+});
