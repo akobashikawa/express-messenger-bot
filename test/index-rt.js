@@ -3,7 +3,8 @@ require('dotenv').config();
 const { describe, Try } = require('riteway');
 const request = require('supertest');
 // const app = require('../app');
-const app = 'http://localhost:3000';
+// const app = 'http://localhost:3000';
+const app = 'https://c4f09fbe.ngrok.io';
 
 // describe('trivial', async assert => {
 //     assert({
